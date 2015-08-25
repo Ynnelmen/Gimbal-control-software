@@ -18,17 +18,15 @@ def filter_reference():
     iterations = 0
     time.sleep(2)
     while True:
-        output1[0] = 180 + .98*(output1[0]+reference_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
-        print .98*(output1[0]+reference_gyro_omega[0]*DT)
-        print .02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
+        output1[0] = offset[0] + .98*(output1[0]+reference_gyro_omega[0]*DT-offset[0])+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
         output1[1] = .98*(output1[1]+reference_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
         output1[2] = .99999*(output1[2]+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
         iterations += 1    
         time.sleep(DT)
         if iterations == 20*(1/DT):
-            offset[0] = +0.0 - output1[0]
-            offset[1] = +0.0 - output1[1]
-            offset[2] = +0.0 - output1[2]
+            offset[0] = 0.0 - output1[0]
+            offset[1] = 0.0 - output1[1]
+            offset[2] = 0.0 - output1[2]
             print "Sensor 1 calibrated"
     
 def filter_stabilized():
@@ -114,7 +112,7 @@ time.sleep(2)
 print "Calibrating..."
 #time.sleep(20)
 while True:
-    #print output1
+    print output1
     #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
     #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
     time.sleep(DT)
