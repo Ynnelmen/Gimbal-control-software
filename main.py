@@ -28,9 +28,9 @@ def filter_reference():
         print output[0]
         print x1
         if iterations == 20*(1/DT):
-            offset[0] = 0.0 - output[0]
-            offset[1] = 0.0 - output[1]
-            offset[2] = 0.0 - output[2]
+            offset[0] = +0.0 - output[0]
+            offset[1] = +0.0 - output[1]
+            offset[2] = +0.0 - output[2]
             print "Sensor 1 calibrated"
     
 def filter_stabilized():
