@@ -20,9 +20,9 @@ def filter_reference():
         output[0] = .98*(output[0]+reference_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
         output[1] = .98*(output[1]+reference_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
         output[2] = .99999*(output[2]+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
-        x1 = output[0] + offset[0] 
-        z1 = output[1] + offset[1]
-        y1 = output[2] + offset[2]
+        x1 = output[0] + offset1[0] 
+        z1 = output[1] + offset1[1]
+        y1 = output[2] + offset1[2]
         iterations += 1    
         time.sleep(DT)
         print output[0]
