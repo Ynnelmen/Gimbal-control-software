@@ -25,6 +25,8 @@ def filter_reference():
         y1 = output[2] + offset[2]
         iterations += 1    
         time.sleep(DT)
+        print output[0]
+        print x1
         if iterations == 20*(1/DT):
             offset[0] = 0.0 - output[0]
             offset[1] = 0.0 - output[1]
@@ -114,7 +116,7 @@ time.sleep(2)
 print "Calibrating..."
 #time.sleep(20)
 while True:
-    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
-    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
+    #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
+    #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
     time.sleep(DT)
 	
