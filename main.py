@@ -11,28 +11,38 @@ import math
 DT = 0.02
 
 def filter_reference():
-    global x1, y1, z1
-    x1 = 0
-    y1 = 0
-    z1 = 0
+    global x1, y1, z1, offset1
+    x1 = y1 = z1 = 0
+    offset1 = [0.0,0.0,0.0]
+    iterations = 0
     time.sleep(2)
     while True:
-        x1 = .99*(x1+reference_gyro_omega[0]*DT)+.01*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
-        y1 = .99*(y1+reference_gyro_omega[1]*DT)+.01*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
+        x1 = .999*(x1+reference_gyro_omega[0]*DT)+.001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
+        y1 = .999*(y1+reference_gyro_omega[1]*DT)+.001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
         z1 = .99999*(z1+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
+        iterations += 1    
         time.sleep(DT)
+        if iterations == 1000:
+            offset1[0] = 0.0 - x1
+            offset1[1] = 0.0 - y1
+            offset1[2] = 0.0 - z1
     
 def filter_stabilized():
-    global x2, y2, z2
-    x2 = 0
-    y2 = 0 
-    z2 = 0
+    global x2, y2, z2, offset2
+    x2 = y2 = z2 = 0
+    offset2 = [0.0,0.0,0.0]
+    iterations = 0
     time.sleep(2)
     while True:
-        x2 = .99*(x2+stabilized_gyro_omega[0]*DT)+.01*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
-        y2 = .99*(y2+stabilized_gyro_omega[1]*DT)+.01*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
+        x2 = .999*(x2+stabilized_gyro_omega[0]*DT)+.001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
+        y2 = .999*(y2+stabilized_gyro_omega[1]*DT)+.001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
         z2 = .99999*(z2+stabilized_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
+        iterations += 1    
         time.sleep(DT)
+        if iterations == 1000:
+            offset2[0] = 0.0 - x1
+            offset2[1] = 0.0 - y1
+            offset2[2] = 0.0 - z1
 
 def accelerometer_reference():
     global reference_accelerometer_acc
@@ -94,7 +104,7 @@ filterStab.start()
 print "Catching up..."
 time.sleep(2)
 while True:
-    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
-    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
+    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1+offset1[0], y1+offset1[1], z1+offset1[2]));
+    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2+offset2[0], y2+offset2[1], z2+offset2[2]));
     time.sleep(DT)
 	
