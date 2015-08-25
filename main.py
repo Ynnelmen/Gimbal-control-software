@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 
-DT = 0.04
+DT = 0.02
 
 def filter_reference():
     global x1, y1, z1, output1
@@ -108,7 +108,8 @@ time.sleep(2)
 print "Calibrating..."
 time.sleep(30)
 while True:
-    print output1, output2
+    print output1
+    print output2
     #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
     #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(output2[0], output2[1], output2[3]));
     time.sleep(DT)
