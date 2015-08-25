@@ -11,39 +11,47 @@ import math
 DT = 0.02
 
 def filter_reference():
-    global x1, y1, z1, offset1
-    x1 = y1 = z1 = 0
-    offset1 = [0.0,0.0,0.0]
+    global x1, y1, z1
+    x1 = y1 = z1 = 0.0
+    offset = output = [0.0,0.0,0.0]
     iterations = 0
     time.sleep(2)
     while True:
-        x1 = .98*(x1+reference_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
-        y1 = .98*(y1+reference_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
-        z1 = .99999*(z1+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
+        output[0] = .98*(x1+reference_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
+        output[1] = .98*(y1+reference_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
+        output[2] = .99999*(z1+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
+        x1 = output[0] + offset[0] 
+        z1 = output[1] + offset[1]
+        y1 = output[2] + offset[2]
         iterations += 1    
         time.sleep(DT)
-        if iterations == 1000:
-            offset1[0] = 0.0 - x1
-            offset1[1] = 0.0 - y1
-            offset1[2] = 0.0 - z1
+        if iterations == 20*(1/DT):
+            offset[0] = 0.0 - output[0]
+            offset[1] = 0.0 - output[1]
+            offset[2] = 0.0 - output[2]
+            print "Sensor 1 calibrated"
     
 def filter_stabilized():
-    global x2, y2, z2, offset2
-    x2 = y2 = z2 = 0
-    offset2 = [0.0,0.0,0.0]
+    global x2, y2, z2
+    x2 = y2 = z2 = 0.0
+    offset = output = [0.0,0.0,0.0]
     iterations = 0
     time.sleep(2)
     while True:
-        x2 = .98*(x2+stabilized_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
-        y2 = .98*(y2+stabilized_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
-        z2 = .99999*(z2+stabilized_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
+        output[0] = .98*(x2+stabilized_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
+        output[1] = .98*(y2+stabilized_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
+        output[2] = .99999*(z2+stabilized_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
+        x2 = output[0] + offset[0] 
+        z2 = output[1] + offset[1]
+        y2 = output[2] + offset[2]
         iterations += 1    
         time.sleep(DT)
-        if iterations == 1000:
-            offset2[0] = 0.0 - x2
-            offset2[1] = 0.0 - y2
-            offset2[2] = 0.0 - z2
-
+        if iterations == 20*(1/DT):
+            offset[0] = 0.0 - output[0]
+            offset[1] = 0.0 - output[1]
+            offset[2] = 0.0 - output[2]
+            print "Sensor 2 calibrated"
+            
 def accelerometer_reference():
     global reference_accelerometer_acc
     reference_accelerometer_acc = 0
@@ -103,8 +111,10 @@ filterRef.start()
 filterStab.start()
 print "Catching up..."
 time.sleep(2)
+print "Calibrating..."
+#time.sleep(20)
 while True:
-    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1+offset1[0], y1+offset1[1], z1+offset1[2]));
-    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2+offset2[0], y2+offset2[1], z2+offset2[2]));
+    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
+    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
     time.sleep(DT)
 	
