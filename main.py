@@ -13,7 +13,7 @@ DT = 0.02
 def filter_reference():
     global x1, y1, z1
     x1 = y1 = z1 = 0.0
-    offset = output = [0.0,0.0,0.0]
+    offset1 = output = [0.0,0.0,0.0]
     iterations = 0
     time.sleep(2)
     while True:
@@ -26,11 +26,11 @@ def filter_reference():
         iterations += 1    
         time.sleep(DT)
         print output[0]
-        print offset
-        if iterations == 20*(1/DT):
-            offset[0] = +0.0 - output[0]
-            offset[1] = +0.0 - output[1]
-            offset[2] = +0.0 - output[2]
+        print offset1
+        if iterations == (20*(1/DT)):
+            offset1[0] = +0.0 - output[0]
+            offset1[1] = +0.0 - output[1]
+            offset1[2] = +0.0 - output[2]
             print "Sensor 1 calibrated"
     
 def filter_stabilized():
