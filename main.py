@@ -106,7 +106,7 @@ filterStab.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-time.sleep(20)
+time.sleep(30)
 while True:
     print output1, output2
     #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
