@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 
-DT = 0.02
+DT = 0.002
 
 def filter_reference():
     global x1, y1, z1, output1
@@ -17,8 +17,8 @@ def filter_reference():
     iterations = 0
     time.sleep(2)
     while True:
-        output1[0] = offset[0] + .98*(output1[0]+reference_gyro_omega[0]*DT-offset[0]) + .02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
-        output1[1] = offset[1] + .98*(output1[1]+reference_gyro_omega[1]*DT-offset[1])+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
+        output1[0] = offset[0] + .99*(output1[0]+reference_gyro_omega[0]*DT-offset[0]) + .01*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
+        output1[1] = offset[1] + .99*(output1[1]+reference_gyro_omega[1]*DT-offset[1])+.01*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
         output1[2] = offset[2] + .99999*(output1[2]+reference_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
         iterations += 1    
         time.sleep(DT)
@@ -35,8 +35,8 @@ def filter_stabilized():
     iterations = 0
     time.sleep(2)
     while True:
-        output2[0] = offset[0] + .98*(output2[0]+stabilized_gyro_omega[0]*DT-offset[0]) + .02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
-        output2[1] = offset[1] + .98*(output2[1]+stabilized_gyro_omega[1]*DT-offset[1]) + .02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
+        output2[0] = offset[0] + .99*(output2[0]+stabilized_gyro_omega[0]*DT-offset[0]) + .01*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
+        output2[1] = offset[1] + .99*(output2[1]+stabilized_gyro_omega[1]*DT-offset[1]) + .01*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
         output2[2] = offset[2] + .99999*(output2[2]+stabilized_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
         iterations += 1    
         time.sleep(DT)
@@ -112,5 +112,5 @@ while True:
     print output2
     #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
     #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
-    time.sleep(DT)
+    time.sleep(25*DT)
 	
