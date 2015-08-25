@@ -17,9 +17,9 @@ def filter_reference():
     iterations = 0
     time.sleep(2)
     while True:
-        output[0] = .98*(x1+reference_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
-        output[1] = .98*(y1+reference_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
-        output[2] = .99999*(z1+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
+        output[0] = .98*(output[0]+reference_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['y'], reference_accelerometer_acc['z'])+math.pi)
+        output[1] = .98*(output[1]+reference_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi)
+        output[2] = .99999*(output[2]+reference_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
         x1 = output[0] + offset[0] 
         z1 = output[1] + offset[1]
         y1 = output[2] + offset[2]
@@ -40,9 +40,9 @@ def filter_stabilized():
     iterations = 0
     time.sleep(2)
     while True:
-        output[0] = .98*(x2+stabilized_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
-        output[1] = .98*(y2+stabilized_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
-        output[2] = .99999*(z2+stabilized_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
+        output[0] = .98*(output[0]+stabilized_gyro_omega[0]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['y'], stabilized_accelerometer_acc['z'])+math.pi)
+        output[1] = .98*(output[1]+stabilized_gyro_omega[1]*DT)+.02*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi)
+        output[2] = .99999*(output[2]+stabilized_gyro_omega[2]*DT)+.00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
         x2 = output[0] + offset[0] 
         z2 = output[1] + offset[1]
         y2 = output[2] + offset[2]
