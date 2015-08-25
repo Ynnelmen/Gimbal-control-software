@@ -1,5 +1,5 @@
 # PyRoscope - IMU software for gimbal-control, written by Jeremie Reusser.
-# Beta 0.1
+# Beta 0.2
 
 from ADXL345.adxl345 import ADXL345
 from L3GD20.L3GD20 import L3GD20
@@ -40,9 +40,9 @@ def filter_stabilized():
         iterations += 1    
         time.sleep(DT)
         if iterations == 1000:
-            offset2[0] = 0.0 - x1
-            offset2[1] = 0.0 - y1
-            offset2[2] = 0.0 - z1
+            offset2[0] = 0.0 - x2
+            offset2[1] = 0.0 - y2
+            offset2[2] = 0.0 - z2
 
 def accelerometer_reference():
     global reference_accelerometer_acc
