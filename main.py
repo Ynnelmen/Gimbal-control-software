@@ -26,7 +26,7 @@ def filter_reference():
         iterations += 1    
         time.sleep(DT)
         print output[0]
-        print x1
+        print offset
         if iterations == 20*(1/DT):
             offset[0] = +0.0 - output[0]
             offset[1] = +0.0 - output[1]
