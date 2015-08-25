@@ -27,7 +27,7 @@ def filter_reference():
         time.sleep(DT)
         print output[0]
         print offset1
-        if iterations == (20*(1/DT)):
+        if iterations == 1000:
             offset1[0] = +0.0 - output[0]
             offset1[1] = +0.0 - output[1]
             offset1[2] = +0.0 - output[2]
@@ -48,7 +48,7 @@ def filter_stabilized():
         y2 = output[2] + offset[2]
         iterations += 1    
         time.sleep(DT)
-        if iterations == 20*(1/DT):
+        if iterations == 1000:
             offset[0] = 0.0 - output[0]
             offset[1] = 0.0 - output[1]
             offset[2] = 0.0 - output[2]
