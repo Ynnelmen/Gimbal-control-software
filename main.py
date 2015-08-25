@@ -13,7 +13,8 @@ DT = 0.02
 def filter_reference():
     global x1, y1, z1
     x1 = y1 = z1 = 0.0
-    offset1 = output = [0.0,0.0,0.0]
+    offset1 = [0.0,0.0,0.0]
+    output = [0.0,0.0,0.0]
     iterations = 0
     time.sleep(2)
     while True:
