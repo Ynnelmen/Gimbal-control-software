@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 
-DT = 0.01
+DT = 0.1
 
 def filter_reference():
     global x1, y1, z1, output1
@@ -40,7 +40,7 @@ def filter_stabilized():
         output2[2] = offset[2] + .99999*(output2[2]+stabilized_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
         iterations += 1    
         time.sleep(DT)
-        if iterations == 1000:
+        if iterations == 20*(1/DT):
             offset[0] = 0.0 - output2[0]
             offset[1] = 0.0 - output2[1]
             offset[2] = 0.0 - output2[2]
@@ -106,11 +106,9 @@ filterStab.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-#time.sleep(20)
+time.sleep(20)
 while True:
-    print output1
-    print output2
-    #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(x1, y1, z1));
-    #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(x2, y2, z2));
-    time.sleep(4*DT)
+    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
+    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(output2[0], output2[1], output2[3]));
+    time.sleep(DT)
 	
