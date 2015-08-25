@@ -108,7 +108,8 @@ time.sleep(2)
 print "Calibrating..."
 time.sleep(20)
 while True:
-    print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
-    print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(output2[0], output2[1], output2[3]));
+    print output1, output2
+    #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
+    #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(output2[0], output2[1], output2[3]));
     time.sleep(DT)
 	
