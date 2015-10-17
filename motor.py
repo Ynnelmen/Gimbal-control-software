@@ -7,6 +7,9 @@ COILC = 23
 
 speed = 100
 pwmSignal = [0,0,0,1,1,1]
+phaseA = 0
+phaseB = 0
+phaseC = 0
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(COILA,GPIO.OUT)
