@@ -42,6 +42,6 @@ while True:
         phaseC = 5
 
     GPIO.output(COILA,pwmSignal[phaseA])
-    GPIO.output(COILb,pwmSignal[phaseB])
+    GPIO.output(COILB,pwmSignal[phaseB])
     GPIO.output(COILC,pwmSignal[phaseC])
     time.sleep(1/speed)
