@@ -1,15 +1,15 @@
 import RPi.GPIO as GPIO
-import time
+import time, math
 
 COILA = 21
 COILB = 22
 COILC = 23
 
-speed = 100
+speed = 10
 pwmSignal = [0,0,0,1,1,1]
 phaseA = 0
-phaseB = 0
-phaseC = 0
+phaseB = 2
+phaseC = 4
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(COILA,GPIO.OUT)
@@ -44,4 +44,5 @@ while True:
     GPIO.output(COILA,pwmSignal[phaseA])
     GPIO.output(COILB,pwmSignal[phaseB])
     GPIO.output(COILC,pwmSignal[phaseC])
-    time.sleep(1/speed)
+    #print pwmSignal[phaseA], pwmSignal[phaseB], pwmSignal[phaseC]
+    time.sleep(1/(math.sqrt(speed**2)))
