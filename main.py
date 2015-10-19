@@ -73,7 +73,7 @@ def motorY():
 			GPIO.output(COILCY,pwmSignal[1])
 		elif speedY < 0:
 			stepY = -1
-		elif speed Y > 0:
+		elif speedY > 0:
 			stepY = 1
 		phaseAY = phaseAY + stepY
 		if phaseAY > 5:
