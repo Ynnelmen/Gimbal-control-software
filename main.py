@@ -28,9 +28,14 @@ def motorX():
 	GPIO.setup(COILBX,GPIO.OUT)
 	GPIO.setup(COILCX,GPIO.OUT)
 	while True:
-		if speedX < 0:
+		if speedX == 0:
+			stepX = 0
+			GPIO.output(COILAX,pwmSignal[1])
+			GPIO.output(COILBX,pwmSignal[1])
+			GPIO.output(COILCX,pwmSignal[1])
+		elif speedX < 0:
 			stepX = -1
-		else:
+		elif speedX > 0:
 			stepX = 1
 		phaseAX = phaseAX + stepX
 		if phaseAX > 5:
@@ -61,9 +66,14 @@ def motorY():
 	GPIO.setup(COILBY,GPIO.OUT)
 	GPIO.setup(COILCY,GPIO.OUT)
 	while True:
-		if speedY < 0:
+		if speedY == 0:
+			stepY = 0
+			GPIO.output(COILAY,pwmSignal[1])
+			GPIO.output(COILBY,pwmSignal[1])
+			GPIO.output(COILCY,pwmSignal[1])
+		elif speedY < 0:
 			stepY = -1
-		else:
+		elif speed Y > 0:
 			stepY = 1
 		phaseAY = phaseAY + stepY
 		if phaseAY > 5:
