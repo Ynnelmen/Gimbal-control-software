@@ -16,7 +16,7 @@ COILBY = None
 COILCY = None
 DT = 0.02 # set to 0.04 for low frequency
 pwmSignal = [0,0,0,1,1,1]
-speedX = 10
+speedX = 5
 speedY = 10
 
 def motorX():
@@ -97,7 +97,7 @@ def filter_reference():
         #output1[2] = offset[2] + .99999*(output1[2]+reference_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
         iterations += 1    
         time.sleep(DT)
-        if iterations == 25*(1/DT):
+        if iterations == 40*(1/DT):
             offset[0] = 0.0 - output1[0]
             offset[1] = 0.0 - output1[1]
             #offset[2] = 0.0 - output1[2]
@@ -115,7 +115,7 @@ def filter_stabilized():
         #output2[2] = offset[2] + .99999*(output2[2]+stabilized_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
         iterations += 1    
         time.sleep(DT)
-        if iterations == 25*(1/DT):
+        if iterations == 40*(1/DT):
             offset[0] = 0.0 - output2[0]
             offset[1] = 0.0 - output2[1]
             #offset[2] = 0.0 - output2[2]
@@ -187,10 +187,10 @@ controlMotorX.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-time.sleep(30)
+time.sleep(45)
 while True:
-    print output1[0:1]
-    print output2[0:1]
+    print output1[0:2]
+    print output2[0:2]
     #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
     #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(output2[0], output2[1], output2[3]));
     time.sleep(DT)
