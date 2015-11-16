@@ -5,7 +5,6 @@ import time
 x = 0
 y = 0
 while True:
-    x = (y/360)*2*math.pi
-    y += 1
-    os.system("i2cset -y 1 0x47 0x00" + hex(sin(x)) + " w")
-    time.sleep(.05)
+    y += (2*math.pi)/360
+    os.system("i2cset -y 1 0x47 0x00" + hex(int((255*math.sin(y)+255)/2)) + " w")
+    time.sleep(.001)
