@@ -2,9 +2,37 @@ import math
 import os
 import time
 
-x = 0
-y = 0
-while True:
-    y += (2*math.pi)/360
-    os.system("i2cset -y 1 0x47 0x00" + hex(int((255*math.sin(y)+255)/2)) + " w")
-    time.sleep(.001)
+motorposition = 0
+
+def turnX(speed):
+    pos = 1
+    while True:
+        motorX(pos)
+        pos += 1
+        if pos == 360:
+            pos = 0
+        time.sleep(1/speed)
+
+def motorX(xpos):
+	os.system("i2cset -y 1 0x47 0x00 " + motorposition[xpos] + " w")
+	os.system("i2cset -y 1 0x47 0x01 " + motorposition[xpos + 120] + " w")
+	os.system("i2cset -y 1 0x47 0x02 " + motorposition[xpos + 240] + " w")
+
+def motorY(ypos):
+	os.system("i2cset -y 1 0x47 0x03 " + motorposition[ypos] + " w")
+	os.system("i2cset -y 1 0x47 0x04 " + motorposition[ypos + 120] + " w")
+	os.system("i2cset -y 1 0x47 0x05 " + motorposition[ypos + 240] + " w")
+
+def generatesteps(resolution):
+    deltastep = 0
+    motorstep = 0
+    motormap = []
+    motormap.extend(range(1,(360/resolution)+1))
+    for item in motormap:
+        motormap[motorstep] = int((255*math.sin(deltastep)+255)/2)
+        deltastep += (2*resolution*math.pi)/360
+        motorstep += 1
+    return motormap
+
+motorposition = generatesteps(1)
+turnX(10)
