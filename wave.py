@@ -14,14 +14,9 @@ def turnX(speed):
         time.sleep(1/speed)
 
 def motorX(xpos):
-	os.system("i2cset -y 1 0x47 0x00 " + motorposition[xpos] + " w")
-	os.system("i2cset -y 1 0x47 0x01 " + motorposition[xpos + 120] + " w")
-	os.system("i2cset -y 1 0x47 0x02 " + motorposition[xpos + 240] + " w")
-
-def motorY(ypos):
-	os.system("i2cset -y 1 0x47 0x03 " + motorposition[ypos] + " w")
-	os.system("i2cset -y 1 0x47 0x04 " + motorposition[ypos + 120] + " w")
-	os.system("i2cset -y 1 0x47 0x05 " + motorposition[ypos + 240] + " w")
+	os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition[xpos]) + " w")
+	os.system("i2cset -y 1 0x47 0x01 " + hex(motorposition[xpos + 120]) + " w")
+	os.system("i2cset -y 1 0x47 0x02 " + hex(motorposition[xpos + 240]) + " w")
 
 def generatesteps(resolution):
     deltastep = 0
