@@ -6,6 +6,12 @@ motorposition1 = 0
 motorposition2 = 0
 motorposition3 = 0
 
+def motorX(xpos):
+    os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition1[xpos]) + " w")
+    os.system("i2cset -y 1 0x47 0x01 " + hex(motorposition2[xpos]) + " w")
+    os.system("i2cset -y 1 0x47 0x02 " + hex(motorposition3[xpos]) + " w")
+
+
 def turnX():
     pass
     x = 0
@@ -15,12 +21,6 @@ def turnX():
         if x > 359:
             x -= 0
         time.sleep(0.001)
-
-
-def motorX(xpos):
-    os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition1[xpos]) + " w")
-	os.system("i2cset -y 1 0x47 0x01 " + hex(motorposition2[xpos]) + " w")
-	os.system("i2cset -y 1 0x47 0x02 " + hex(motorposition3[xpos]) + " w")
 
 def generatesteps(resolution, offset):
     deltastep = offset
