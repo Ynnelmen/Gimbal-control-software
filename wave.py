@@ -4,14 +4,19 @@ import time
 
 motorposition = 0
 
-def turnX(speed):
-    pos = 1
+def turnX():
+    p = 0
     while True:
-        motorX(pos)
-        pos += 1
-        if pos == 360:
-            pos = 0
-        time.sleep(1/speed)
+        motorX(p)
+        p += 1
+        time.sleep(1/90)
+        if p > 90:
+            while p > 1
+                motorX(p)
+                p -= 1
+                time.sleep(1/90)
+
+
 
 def motorX(xpos):
 	os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition[xpos]) + " w")
@@ -30,4 +35,4 @@ def generatesteps(resolution):
     return motormap
 
 motorposition = generatesteps(1)
-turnX(10)
+turnX()
