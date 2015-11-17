@@ -11,7 +11,7 @@ def turnX():
         p += 1
         time.sleep(1/90)
         if p > 90:
-            while p > 1
+            while p > 1:
                 motorX(p)
                 p -= 1
                 time.sleep(1/90)
