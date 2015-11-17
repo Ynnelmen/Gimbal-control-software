@@ -31,4 +31,5 @@ def generatesteps(resolution):
     return motormap
 
 motorposition = generatesteps(1)
+print motorposition
 turnX()
