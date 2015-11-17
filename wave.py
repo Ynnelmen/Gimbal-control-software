@@ -18,7 +18,7 @@ def turnX():
     while True:
         motorX(x)
         x += 1
-        if x > 179:
+        if x > 4:
             x = 0
         #time.sleep(0.00001)
 
@@ -33,9 +33,9 @@ def generatesteps(resolution, offset):
         motorstep += 1
     return motormap
 
-motorposition1 = generatesteps(2,0)
-motorposition2 = generatesteps(2,2.0943933333)
-motorposition3 = generatesteps(2,4.1887866666)
+motorposition1 = generatesteps(120,0)
+motorposition2 = generatesteps(120,2.0943933333)
+motorposition3 = generatesteps(120,4.1887866666)
 print motorposition1
 print motorposition2
 print motorposition3
