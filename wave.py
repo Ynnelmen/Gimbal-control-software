@@ -19,8 +19,8 @@ def turnX():
         motorX(x)
         x += 1
         if x > 359:
-            x -= 0
-        time.sleep(0.001)
+            x = 0
+        time.sleep(0.00001)
 
 def generatesteps(resolution, offset):
     deltastep = offset
