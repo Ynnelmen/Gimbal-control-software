@@ -18,7 +18,7 @@ def turnX():
     while True:
         motorX(x)
         x += 1
-        if x > 4:
+        if x > 2:
             x = 0
         #time.sleep(0.00001)
 
