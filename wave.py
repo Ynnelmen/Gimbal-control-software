@@ -5,17 +5,12 @@ import time
 motorposition = 0
 
 def turnX():
-    p = 0
-    while True:
-        motorX(p)
-        p += 1
-        time.sleep(1/90)
-        if p > 90:
-            while p > 1:
-                motorX(p)
-                p -= 1
-                time.sleep(1/90)
-
+    x = 0
+    motorX(x)
+    x += 1
+    if x > 359:
+        x = 0
+    time.sleep(0.001)
 
 
 def motorX(xpos):
