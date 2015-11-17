@@ -15,7 +15,8 @@ def turnX():
 
 
 def motorX(xpos):
-	os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition[xpos]) + " w")
+    print motorposition[xpos],motorposition[xpos+120],motorposition[xpos+240]
+    os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition[xpos]) + " w")
 	os.system("i2cset -y 1 0x47 0x01 " + hex(motorposition[xpos + 120]) + " w")
 	os.system("i2cset -y 1 0x47 0x02 " + hex(motorposition[xpos + 240]) + " w")
 
