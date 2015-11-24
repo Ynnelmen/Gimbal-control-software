@@ -22,8 +22,8 @@ def turnX():
         if x > 11:
             x = 0
         time.sleep(0.001)
-    except KeyboardInterrupt:
-        pass
+    #except KeyboardInterrupt:
+        #pass
 
 def generatesteps(resolution, offset):
     deltastep = offset
