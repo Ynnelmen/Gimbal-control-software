@@ -1,15 +1,16 @@
 import math
 import os
 import time
+import RPi.GPIO as GPIO
 
 motorposition1 = 0
 motorposition2 = 0
 motorposition3 = 0
 
 def motorX(xpos):
-    os.system("i2cset -y 1 0x47 0x00 " + hex(motorposition1[xpos]) + " w")
-    os.system("i2cset -y 1 0x47 0x01 " + hex(motorposition2[xpos]) + " w")
-    os.system("i2cset -y 1 0x47 0x02 " + hex(motorposition3[xpos]) + " w")
+    p.ChangeDutyCycle(motorposition1[xpos])
+    q.ChangeDutyCycle(motorposition1[xpos])
+    r.ChangeDutyCycle(motorposition1[xpos])
 
 
 def turnX():
@@ -20,7 +21,9 @@ def turnX():
         x += 1
         if x > 11:
             x = 0
-        #time.sleep(0.00001)
+        time.sleep(0.001)
+    except KeyboardInterrupt:
+        pass
 
 def generatesteps(resolution, offset):
     deltastep = offset
@@ -28,15 +31,26 @@ def generatesteps(resolution, offset):
     motormap = []
     motormap.extend(range(1,(360/resolution)+1))
     for item in motormap:
-        motormap[motorstep] = int((255*math.sin(deltastep)+255)/2)
+        motormap[motorstep] = int((100*math.sin(deltastep)+100)/2)
         deltastep += (2*resolution*math.pi)/360
         motorstep += 1
     return motormap
 
-motorposition1 = generatesteps(30,0)
-motorposition2 = generatesteps(30,2.0943933333)
-motorposition3 = generatesteps(30,4.1887866666)
+motorposition1 = generatesteps(2,0)
+motorposition2 = generatesteps(2,2.0943933333)
+motorposition3 = generatesteps(2,4.1887866666)
 print motorposition1
 print motorposition2
 print motorposition3
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(10, GPIO.OUT)
+GPIO.setup(11, GPIO.OUT)
+GPIO.setup(12, GPIO.OUT)
+p = GPIO.PWM(10, 250)
+q = GPIO.PWM(11, 250)
+r = GPIO.PWM(12, 250)
+p.start(0)
+q.start(0)
+r.start(0)
 turnX()
+GPIO.clenup()
