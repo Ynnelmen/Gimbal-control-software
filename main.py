@@ -20,18 +20,6 @@ pwmSignal = [0,0,0,1,1,1]
 speedX = 5
 speedY = 10
 
-def motorX(xpos):
-	if xpos < 0:
-		xpos = 360 - xpos
-	os.system("i2cset -y 1 0x47 0x00 " + motorposition[xpos] + " w")
-	os.system("i2cset -y 1 0x47 0x01 " + motorposition[xpos + 120] + " w")
-	os.system("i2cset -y 1 0x47 0x02 " + motorposition[xpos + 240] + " w")
-
-def motorY(ypos):
-	os.system("i2cset -y 1 0x47 0x03 " + motorposition[ypos] + " w")
-	os.system("i2cset -y 1 0x47 0x04 " + motorposition[ypos + 120] + " w")
-	os.system("i2cset -y 1 0x47 0x05 " + motorposition[ypos + 240] + " w")
-
 def filter_reference():
     global x1, y1, z1, output1
     offset = [0.0,0.0,0.0]
@@ -136,11 +124,6 @@ filterRef = Thread(target=filter_reference, args=())
 filterStab = Thread(target=filter_stabilized, args=())
 filterRef.start()
 filterStab.start()
-controlMotorX = Thread(target=motorX, args=())
-controlMotorX.start()
-#controlMotorY = Thread(target=motorY, args=())
-#controlMotorY.start()
-
 
 print "Catching up..."
 time.sleep(2)
