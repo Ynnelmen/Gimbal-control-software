@@ -132,7 +132,6 @@ time.sleep(45)
 while True:
     print output1[0:2]
     print output2[0:2]
-	motorX(-(int(output2[0])))
     #print("x1:{: 7.0f} y1:{:7.0f} z1:{:7.0f}".format(output1[0], output1[1], output1[2]));
     #print("x2:{:7.0f} y2:{:7.0f} z2:{:7.0f}".format(output2[0], output2[1], output2[3]));
     time.sleep(DT)
