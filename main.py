@@ -32,9 +32,10 @@ def motorX():
             xpos = xpos - 89
         if xpos < 0:
             xpos = 89 - xpos
-        p.ChangeDutyCycle(motorposition1[xpos])
-        q.ChangeDutyCycle(motorposition2[xpos])
-        r.ChangeDutyCycle(motorposition3[xpos])
+        print xpos
+        #p.ChangeDutyCycle(motorposition1[xpos])
+        #q.ChangeDutyCycle(motorposition2[xpos])
+        #r.ChangeDutyCycle(motorposition3[xpos])
 
 def generatesteps(resolution, offset):
     deltastep = offset
@@ -167,7 +168,7 @@ print "Get ready!"
 time.sleep(2)
 while True:
     try:
-        print output1[0:2]
+        #print output1[0:2]
         #print output2[0:2]
         time.sleep(DT)
     except KeyboardInterrupt:
