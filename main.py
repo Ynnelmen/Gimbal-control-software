@@ -29,7 +29,7 @@ def motorX():
     time.sleep(30)
     while True:
         xpos += int(3*(-output1[0]))
-        if xpos > 359
+        if xpos > 359:
             xpos = xpos - 360
         if xpos < 0:
             xpos = 360 + xpos
