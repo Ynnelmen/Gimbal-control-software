@@ -61,7 +61,7 @@ def filter_reference():
         #output1[2] = offset[2] + .99999*(output1[2]+reference_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['x'], reference_accelerometer_acc['y'])+math.pi)
         iterations += 1
         time.sleep(DT)
-        if iterations == 40*(1/DT):
+        if iterations == 20*(1/DT):
             offset[0] = 0.0 - output1[0]
             offset[1] = 0.0 - output1[1]
             #offset[2] = 0.0 - output1[2]
@@ -81,7 +81,7 @@ def filter_stabilized():
         #output2[2] = offset[2] + .99999*(output2[2]+stabilized_gyro_omega[2]*DT-offset[2]) + .00001*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['x'], stabilized_accelerometer_acc['y'])+math.pi)
         iterations += 1
         time.sleep(DT)
-        if iterations == 40*(1/DT):
+        if iterations == 20*(1/DT):
             offset[0] = 0.0 - output2[0]
             offset[1] = 0.0 - output2[1]
             output2[0] = 0
