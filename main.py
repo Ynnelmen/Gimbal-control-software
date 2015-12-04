@@ -7,6 +7,7 @@ from threading import Thread
 import RPi.GPIO as GPIO
 import time
 import math
+import os
 
 COILAX = 21
 COILBX = 22
