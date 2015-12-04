@@ -172,4 +172,4 @@ while True:
         time.sleep(DT)
     except KeyboardInterrupt:
         GPIO.cleanup()
-        exit()
+        os.system("sudo killall python")
