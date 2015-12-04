@@ -171,7 +171,6 @@ print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
 time.sleep(30)
-in = 0
 while True:
     try:
         #print output1[0:2]
