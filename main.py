@@ -25,14 +25,13 @@ motorposition3 = 0
 
 def motorX():
     xpos = 0
-    time.sleep(45)
+    #time.sleep(45)
     while True:
         xpos += int(3*(-output1[0]))
         if xpos > 89:
             xpos = xpos - 89
         if xpos < 0:
             xpos = 89 - xpos
-        print xpos
         #p.ChangeDutyCycle(motorposition1[xpos])
         #q.ChangeDutyCycle(motorposition2[xpos])
         #r.ChangeDutyCycle(motorposition3[xpos])
@@ -170,6 +169,7 @@ while True:
     try:
         #print output1[0:2]
         #print output2[0:2]
+        print xpos
         time.sleep(DT)
     except KeyboardInterrupt:
         GPIO.cleanup()
