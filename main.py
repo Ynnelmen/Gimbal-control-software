@@ -7,7 +7,6 @@ from threading import Thread
 import RPi.GPIO as GPIO
 import time
 import math
-import os
 
 COILAX = 21
 COILBX = 22
@@ -19,6 +18,36 @@ DT = 0.02 # set to 0.04 for low frequency
 pwmSignal = [0,0,0,1,1,1]
 speedX = 5
 speedY = 10
+motorposition1 = 0
+motorposition2 = 0
+motorposition3 = 0
+
+def motorX(xpos):
+    p.ChangeDutyCycle(motorposition1[xpos])
+    q.ChangeDutyCycle(motorposition2[xpos])
+    r.ChangeDutyCycle(motorposition3[xpos])
+
+def turnX():
+    pass
+    x = 0
+    while True:
+        motorX(x)
+        x += 1
+        if x > 89:
+            x = 0
+	#time.sleep(0.0005)
+	time.sleep(0.08)
+
+def generatesteps(resolution, offset):
+    deltastep = offset
+    motorstep = 0
+    motormap = []
+    motormap.extend(range(1,(360/resolution)+1))
+    for item in motormap:
+        motormap[motorstep] = int((100*math.sin(deltastep)+100)/2)
+        deltastep += (2*resolution*math.pi)/360
+        motorstep += 1
+    return motormap
 
 def filter_reference():
     global x1, y1, z1, output1
@@ -100,18 +129,7 @@ def gyro_stabilized():
     while True:
         time.sleep(DT)
         stabilized_gyro_omega = stabilized_gyro.Get_CalOut_Value()
-def generatesteps(resolution):
-    deltastep = 0
-    motorstep = 0
-    motormap = []
-    motormap.extend(range(1,(360/resolution)+1))
-    for item in motormap:
-        motormap[motorstep] = int((255*math.sin(deltastep)+255)/2)
-        deltastep += (2*resolution*math.pi)/360
-        motorstep += 1
-    return motormap
 
-motorposition = generatesteps(1)
 readGyroRef = Thread(target=gyro_reference, args=())
 readAccRef = Thread(target=accelerometer_reference, args=())
 readGyroStab = Thread(target=gyro_stabilized, args=())
@@ -124,6 +142,22 @@ filterRef = Thread(target=filter_reference, args=())
 filterStab = Thread(target=filter_stabilized, args=())
 filterRef.start()
 filterStab.start()
+
+motorposition1 = generatesteps(4,0)
+motorposition2 = generatesteps(4,2.0943933333)
+motorposition3 = generatesteps(4,4.1887866666)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(10, GPIO.OUT)
+GPIO.setup(11, GPIO.OUT)
+GPIO.setup(12, GPIO.OUT)
+p = GPIO.PWM(10, 200)
+q = GPIO.PWM(11, 200)
+r = GPIO.PWM(12, 200)
+p.start(0)
+q.start(0)
+r.start(0)
+turnX()
+GPIO.cleanup()
 
 print "Catching up..."
 time.sleep(2)

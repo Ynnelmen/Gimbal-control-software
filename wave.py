@@ -1,5 +1,4 @@
 import math
-import os
 import time
 import RPi.GPIO as GPIO
 
@@ -22,7 +21,7 @@ def turnX():
         if x > 89:
             x = 0
 	#time.sleep(0.0005)
-	time.sleep(0.08)    
+	time.sleep(0.08)
 #except KeyboardInterrupt:
         #pass
 
@@ -54,4 +53,4 @@ p.start(0)
 q.start(0)
 r.start(0)
 turnX()
-GPIO.clenup()
+GPIO.cleanup()
