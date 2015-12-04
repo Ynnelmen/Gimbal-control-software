@@ -65,6 +65,8 @@ def filter_reference():
             offset[0] = 0.0 - output1[0]
             offset[1] = 0.0 - output1[1]
             #offset[2] = 0.0 - output1[2]
+            output1[0] = 0
+            output1[1] = 0
             print "Sensor 1 calibrated"
 
 def filter_stabilized():
@@ -82,6 +84,8 @@ def filter_stabilized():
         if iterations == 40*(1/DT):
             offset[0] = 0.0 - output2[0]
             offset[1] = 0.0 - output2[1]
+            output2[0] = 0
+            output2[1] = 0
             #offset[2] = 0.0 - output2[2]
             print "Sensor 2 calibrated"
 
