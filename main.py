@@ -36,15 +36,19 @@ def motorX():
         q.ChangeDutyCycle(motorposition2[xpos])
         r.ChangeDutyCycle(motorposition3[xpos])
 
+def tests(xpos):
+    p.ChangeDutyCycle(motorposition1[xpos])
+    q.ChangeDutyCycle(motorposition2[xpos])
+    r.ChangeDutyCycle(motorposition3[xpos])
+
 def turnX():
     pass
     x = 0
     while True:
-        motorX(x)
+        test(x)
         x += 1
         if x > 89:
             x = 0
-	#time.sleep(0.0005)
 	time.sleep(0.08)
 
 def generatesteps(resolution, offset):
@@ -169,6 +173,7 @@ readGyroStab.start()
 readAccStab.start()
 filterRef.start()
 filterStab.start()
+#turnX()
 motorXThread.start()
 print "Catching up..."
 time.sleep(2)
