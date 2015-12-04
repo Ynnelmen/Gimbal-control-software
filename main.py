@@ -24,6 +24,7 @@ motorposition2 = 0
 motorposition3 = 0
 
 def motorX():
+    global xpos
     xpos = 0
     time.sleep(45)
     while True:
@@ -162,9 +163,9 @@ motorXThread.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-time.sleep(43)
+time.sleep(25)
 print "Get ready!"
-time.sleep(2)
+time.sleep(5)
 while True:
     try:
         #print output1[0:2]
