@@ -23,7 +23,12 @@ motorposition1 = 0
 motorposition2 = 0
 motorposition3 = 0
 
-def motorX(xpos):
+def motorX(xshift):
+    xpos += 3*xshift
+    if xpos > 89:
+        xpos = xpos - 89
+    if xpos < 0:
+        xpos = 89 - xpos
     p.ChangeDutyCycle(motorposition1[xpos])
     q.ChangeDutyCycle(motorposition2[xpos])
     r.ChangeDutyCycle(motorposition3[xpos])
@@ -166,15 +171,13 @@ print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
 time.sleep(30)
+in = 0
 while True:
     try:
         #print output1[0:2]
         #print output2[0:2]
+        motorX(-output1[0])
         time.sleep(DT/4)
-        in = 3*(0 - output1[0])
-        if in > 89
-            in = 0
-        motorX(in)
     except KeyboardInterrupt:
         GPIO.cleanup()
         os.system("sudo killall python")
