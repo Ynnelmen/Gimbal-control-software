@@ -171,6 +171,5 @@ while True:
         print output2[0:2]
         time.sleep(DT)
     except KeyboardInterrupt:
-        break
-GPIO.cleanup()
-exit()
+        GPIO.cleanup()
+        exit()
