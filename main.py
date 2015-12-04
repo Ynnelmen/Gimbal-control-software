@@ -157,10 +157,6 @@ readAccStab.start()
 filterRef.start()
 filterStab.start()
 motorXThread.start()
-
-
-GPIO.cleanup()
-
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
