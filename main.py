@@ -161,10 +161,12 @@ print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
 time.sleep(20)
-while 1:
-    print output1[0:2]
-    print output2[0:2]
-    time.sleep(DT)
+while True:
+    try:
+        print output1[0:2]
+        print output2[0:2]
+        time.sleep(DT)
     except KeyboardInterrupt:
+        break
 GPIO.cleanup()
 exit()
