@@ -25,7 +25,7 @@ motorposition3 = 0
 
 def motorX():
     xpos = 0
-    #time.sleep(45)
+    time.sleep(45)
     while True:
         xpos += int(3*(-output1[0]))
         if xpos > 89:
