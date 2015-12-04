@@ -13,7 +13,6 @@ def motorX(xpos):
 
 
 def turnX():
-    pass
     x = 0
     while True:
         motorX(x)

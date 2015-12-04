@@ -154,23 +154,27 @@ readGyroStab = Thread(target=gyro_stabilized, args=())
 readAccStab = Thread(target=accelerometer_stabilized, args=())
 filterRef = Thread(target=filter_reference, args=())
 filterStab = Thread(target=filter_stabilized, args=())
-motorXThread = Thread(target=turnX, args=())
+#motorXThread = Thread(target=turnX, args=())
 readGyroRef.start()
 readAccRef.start()
 readGyroStab.start()
 readAccStab.start()
 filterRef.start()
 filterStab.start()
-motorXThread.start()
+#motorXThread.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-time.sleep(20)
+time.sleep(30)
 while True:
     try:
-        print output1[0:2]
-        print output2[0:2]
-        time.sleep(DT)
+        #print output1[0:2]
+        #print output2[0:2]
+        time.sleep(DT/4)
+        in = 3*(0 - output1[0])
+        if in > 89
+            in = 0
+        motorX(in)
     except KeyboardInterrupt:
         GPIO.cleanup()
         os.system("sudo killall python")
