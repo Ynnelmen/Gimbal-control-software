@@ -36,7 +36,7 @@ def motorX():
         q.ChangeDutyCycle(motorposition2[xpos])
         r.ChangeDutyCycle(motorposition3[xpos])
 
-def tests(xpos):
+def test(xpos):
     p.ChangeDutyCycle(motorposition1[xpos])
     q.ChangeDutyCycle(motorposition2[xpos])
     r.ChangeDutyCycle(motorposition3[xpos])
