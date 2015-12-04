@@ -23,15 +23,18 @@ motorposition1 = 0
 motorposition2 = 0
 motorposition3 = 0
 
-def motorX(xshift):
-    xpos += 3*xshift
-    if xpos > 89:
-        xpos = xpos - 89
-    if xpos < 0:
-        xpos = 89 - xpos
-    p.ChangeDutyCycle(motorposition1[xpos])
-    q.ChangeDutyCycle(motorposition2[xpos])
-    r.ChangeDutyCycle(motorposition3[xpos])
+def motorX():
+    xpos = 0
+    time.sleep(45)
+    while True:
+        xpos += 3*(-output1[0])
+        if xpos > 89:
+            xpos = xpos - 89
+        if xpos < 0:
+            xpos = 89 - xpos
+        p.ChangeDutyCycle(motorposition1[xpos])
+        q.ChangeDutyCycle(motorposition2[xpos])
+        r.ChangeDutyCycle(motorposition3[xpos])
 
 def turnX():
     pass
@@ -159,24 +162,25 @@ readGyroStab = Thread(target=gyro_stabilized, args=())
 readAccStab = Thread(target=accelerometer_stabilized, args=())
 filterRef = Thread(target=filter_reference, args=())
 filterStab = Thread(target=filter_stabilized, args=())
-#motorXThread = Thread(target=turnX, args=())
+motorXThread = Thread(target=turnX, args=())
 readGyroRef.start()
 readAccRef.start()
 readGyroStab.start()
 readAccStab.start()
 filterRef.start()
 filterStab.start()
-#motorXThread.start()
+motorXThread.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-time.sleep(30)
+time.sleep(43)
+print "Get ready!"
+time.sleep(2)
 while True:
     try:
-        #print output1[0:2]
-        #print output2[0:2]
-        motorX(-output1[0])
-        time.sleep(DT/4)
+        print output1[0:2]
+        print output2[0:2]
+        time.sleep(DT)
     except KeyboardInterrupt:
         GPIO.cleanup()
         os.system("sudo killall python")
