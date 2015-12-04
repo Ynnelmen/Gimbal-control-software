@@ -169,7 +169,7 @@ print "Get ready!"
 time.sleep(5)
 while True:
     try:
-        print output1[0]
+        print int(output1[0])
         #print output2[0:2]
         print xpos
         time.sleep(DT)
