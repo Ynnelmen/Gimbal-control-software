@@ -26,22 +26,23 @@ motorposition3 = 0
 def motorX():
     global xpos
     xpos = 0
-    time.sleep(45)
+    time.sleep(30)
     while True:
         xpos += int(3*(-output1[0]))
-        if xpos > 89:
-            xpos = xpos - 89
+        if xpos > 359
+            xpos = xpos - 360
         if xpos < 0:
-            xpos = 89 - xpos
-        #p.ChangeDutyCycle(motorposition1[xpos])
-        #q.ChangeDutyCycle(motorposition2[xpos])
-        #r.ChangeDutyCycle(motorposition3[xpos])
+            xpos = 360 + xpos
+        time.sleep(DT/2)
+        p.ChangeDutyCycle(motorposition1[xpos])
+        q.ChangeDutyCycle(motorposition2[xpos])
+        r.ChangeDutyCycle(motorposition3[xpos])
 
 def generatesteps(resolution, offset):
     deltastep = offset
     motorstep = 0
     motormap = []
-    motormap.extend(range(1,(360/resolution)+1))
+    motormap.extend(range(1,((12*360)/resolution)+1))
     for item in motormap:
         motormap[motorstep] = int((100*math.sin(deltastep)+100)/2)
         deltastep += (2*resolution*math.pi)/360

@@ -19,16 +19,14 @@ def turnX():
         x += 1
         if x > 89:
             x = 0
-	#time.sleep(0.0005)
-	time.sleep(0.08)
-#except KeyboardInterrupt:
-        #pass
+^	time.sleep(0.08)
+^
 
 def generatesteps(resolution, offset):
     deltastep = offset
     motorstep = 0
     motormap = []
-    motormap.extend(range(1,(360/resolution)+1))
+    motormap.extend(range(1,((12*360)/resolution)+1))
     for item in motormap:
         motormap[motorstep] = int((100*math.sin(deltastep)+100)/2)
         deltastep += (2*resolution*math.pi)/360
