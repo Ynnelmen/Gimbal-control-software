@@ -9,12 +9,10 @@ import time
 import math
 import os
 
-COILAX = 21
-COILBX = 22
-COILCX = 23
-COILAY = None
-COILBY = None
-COILCY = None
+factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
+factor0 = 0.3   # "         "         der alten Werte
+factor1 = 0.2
+factor2 = 0.1
 DT = 0.02 # set to 0.04 for low frequency
 pwmSignal = [0,0,0,1,1,1]
 speedX = 5
@@ -34,9 +32,30 @@ def motorX():
         if xpos < 0:
             xpos = 360 + xpos
         time.sleep(DT/2)
-        p.ChangeDutyCycle(motorposition1[xpos])
-        q.ChangeDutyCycle(motorposition2[xpos])
-        r.ChangeDutyCycle(motorposition3[xpos])
+        p.ChangeDutyCycle(xmotorposition1[xpos])
+        q.ChangeDutyCycle(xmotorposition2[xpos])
+        r.ChangeDutyCycle(xmotorposition3[xpos])
+
+def motorY():
+    global ypos
+    ypos = 0
+    time.sleep(30)
+    while True:
+        ypos = int(output1[1])
+        if ypos > 359:
+            ypos = ypos - 360
+        if ypos < 0:
+            ypos = 360 + ypos
+        time.sleep(DT/2)
+        s.ChangeDutyCycle(ymotorposition1[ypos])
+        t.ChangeDutyCycle(ymotorposition2[ypos])
+        u.ChangeDutyCycle(ymotorposition3[ypos])
+
+def gentarget(newinput):
+	output = newinput*factorIN + prev[0]*factor0 + prev[1]*factor1 + prev[2]*factor2 ##input wird an vorherige messungen angeglichen
+    del prev[0]
+    prev.append(output) #speichert angepassten output im array
+    return (output)
 
 def generatesteps(resolution, offset):
     deltastep = offset
@@ -134,19 +153,32 @@ def gyro_stabilized():
         time.sleep(DT)
         stabilized_gyro_omega = stabilized_gyro.Get_CalOut_Value()
 
-motorposition1 = generatesteps(4,0)
-motorposition2 = generatesteps(4,2.0943933333)
-motorposition3 = generatesteps(4,4.1887866666)
+xmotorposition1 = generatesteps(4,0)
+xmotorposition2 = generatesteps(4,2.0943933333)
+xmotorposition3 = generatesteps(4,4.1887866666)
+ymotorposition1 = generatesteps(4,0)
+ymotorposition2 = generatesteps(4,2.0943933333)
+ymotorposition3 = generatesteps(4,4.1887866666)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(10, GPIO.OUT)
 GPIO.setup(11, GPIO.OUT)
 GPIO.setup(12, GPIO.OUT)
+GPIO.setup(13, GPIO.OUT)
+GPIO.setup(14, GPIO.OUT)
+GPIO.setup(15, GPIO.OUT)
 p = GPIO.PWM(10, 200)
 q = GPIO.PWM(11, 200)
 r = GPIO.PWM(12, 200)
+s = GPIO.PWM(13, 200)
+t = GPIO.PWM(14, 200)
+u = GPIO.PWM(15, 200)
 p.start(0)
 q.start(0)
 r.start(0)
+s.start(0)
+t.start(0)
+u.start(0)
+
 readGyroRef = Thread(target=gyro_reference, args=())
 readAccRef = Thread(target=accelerometer_reference, args=())
 readGyroStab = Thread(target=gyro_stabilized, args=())
@@ -154,6 +186,7 @@ readAccStab = Thread(target=accelerometer_stabilized, args=())
 filterRef = Thread(target=filter_reference, args=())
 filterStab = Thread(target=filter_stabilized, args=())
 motorXThread = Thread(target=motorX, args=())
+motorYThread = Thread(target=motorY, args=())
 readGyroRef.start()
 readAccRef.start()
 readGyroStab.start()
@@ -161,6 +194,7 @@ readAccStab.start()
 filterRef.start()
 filterStab.start()
 motorXThread.start()
+motorYThread.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
@@ -169,9 +203,8 @@ print "Get ready!"
 time.sleep(5)
 while True:
     try:
-        print int(output1[0])
-        #print output2[0:2]
-        print xpos
+        print int(output1[0:2])
+        print int(output2[0:2])
         time.sleep(DT)
     except KeyboardInterrupt:
         GPIO.cleanup()
