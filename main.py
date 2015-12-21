@@ -189,7 +189,6 @@ x3.start(0)
 y1.start(0)
 y2.start(0)
 y3.start(0)
-
 # initialize parallel tasks for reading, processing and output
 readGyroRef = Thread(target=gyro_reference, args=())
 readAccRef = Thread(target=accelerometer_reference, args=())
