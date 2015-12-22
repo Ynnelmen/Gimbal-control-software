@@ -10,7 +10,9 @@ def motorX(xpos):
     p.ChangeDutyCycle(motorposition1[xpos])
     q.ChangeDutyCycle(motorposition2[xpos])
     r.ChangeDutyCycle(motorposition3[xpos])
-
+    s.ChangeDutyCycle(motorposition1[xpos])
+    t.ChangeDutyCycle(motorposition2[xpos])
+    u.ChangeDutyCycle(motorposition3[xpos])
 
 def turnX():
     x = 0
@@ -19,8 +21,7 @@ def turnX():
         x += 1
         if x > 89:
             x = 0
-^	time.sleep(0.08)
-^
+        time.sleep(0.08)
 
 def generatesteps(resolution, offset):
     deltastep = offset
@@ -40,14 +41,23 @@ print motorposition1
 print motorposition2
 print motorposition3
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(10, GPIO.OUT)
 GPIO.setup(11, GPIO.OUT)
-GPIO.setup(12, GPIO.OUT)
-p = GPIO.PWM(10, 200)
-q = GPIO.PWM(11, 200)
-r = GPIO.PWM(12, 200)
+GPIO.setup(13, GPIO.OUT)
+GPIO.setup(15, GPIO.OUT)
+p = GPIO.PWM(11, 200)
+q = GPIO.PWM(13, 200)
+r = GPIO.PWM(15, 200)
 p.start(0)
 q.start(0)
 r.start(0)
+GPIO.setup(36, GPIO.OUT)
+GPIO.setup(38, GPIO.OUT)
+GPIO.setup(40, GPIO.OUT)
+s = GPIO.PWM(36, 200)
+t = GPIO.PWM(38, 200)
+u = GPIO.PWM(40, 200)
+s.start(0)
+t.start(0)
+u.start(0)
 turnX()
 GPIO.cleanup()
