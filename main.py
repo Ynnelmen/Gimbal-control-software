@@ -80,8 +80,8 @@ def generatesteps(resolution, offset): # generate array values for every possibl
 
 def filter_reference(): # combines raw sensor data from reference pair
     global x1, y1, z1, output1
-    offset = [0.0,0.0,0.0]
-    output1 = [0.0,0.0,0.0]
+    offset = [0.0,0.0]
+    output1 = [0.0,0.0]
     iterations = 0
     time.sleep(2)
     while True:
@@ -98,8 +98,8 @@ def filter_reference(): # combines raw sensor data from reference pair
 
 def filter_stabilized(): # combines raw sensor data from stabilized pair
     global output2
-    offset = [0.0,0.0,0.0]
-    output2 = [0.0,0.0,0.0]
+    offset = [0.0,0.0]
+    output2 = [0.0,0.0]
     iterations = 0
     time.sleep(2)
     while True:
