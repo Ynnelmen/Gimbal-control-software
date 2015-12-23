@@ -19,7 +19,7 @@ factor0 = 0.3   # "         "         der alten Werte
 factor1 = 0.2
 factor2 = 0.1
 DT = 0.02 # master program duty cycle (regulator refresh rate) - set to 0.04 for low frequency
-PWM_FREQ = 600 # set master PWM refresh rate (motors only)
+PWM_FREQ = 1000 # set master PWM refresh rate (motors only)
 
 motorposition1 = 0
 motorposition2 = 0
@@ -42,7 +42,6 @@ def motorX(): # controls x-axis
         x1.ChangeDutyCycle(xmotorposition1[xpos])
         x2.ChangeDutyCycle(xmotorposition2[xpos])
         x3.ChangeDutyCycle(xmotorposition3[xpos])
-        print x, xpos
 
 def motorY(): # controls y-axis
     global ypos
