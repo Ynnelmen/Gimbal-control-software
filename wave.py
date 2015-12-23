@@ -26,7 +26,7 @@ def turnX():
             x -= 1
             time.sleep(0.08)
         time.sleep(1)
-            x = 360
+        x = 360
         while x != 0:
             motorX(x)
             x -= 1
