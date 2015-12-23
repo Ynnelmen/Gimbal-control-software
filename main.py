@@ -12,8 +12,8 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
-prevx = [0,0,0]
-prevy = [0,0,0]
+prevx = [0]*121
+prevy = [0]*121
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
 factor0 = 0.3   # "         "         der alten Werte
 factor1 = 0.2
@@ -64,11 +64,11 @@ def motorY(): # controls y-axis
 
 def gentarget(newinput, axis):
     if axis == 0:
-        output = newinput*factorIN + prevx[0]*factor0 + prevx[1]*factor1 + prevx[2]*factor2
+        output = newinput*factorIN + prevx[0]*factor0 + prevx[60]*factor1 + prevx[120]*factor2
         del prevx[0]
         prevx.append(output) #speichert angepassten output im array
     elif axis == 1:
-        output = newinput*factorIN + prevy[0]*factor0 + prevy[1]*factor1 + prevy[2]*factor2
+        output = newinput*factorIN + prevy[0]*factor0 + prevy[60]*factor1 + prevy[120]*factor2
         del prevy[0]
         prevy.append(output) #speichert angepassten output im array
     return (output)
