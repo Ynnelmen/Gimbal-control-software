@@ -17,18 +17,33 @@ def motorX(xpos):
 def turnX():
     x = 0
     while True:
-        motorX(x)
-        x += 1
-        if x > 89:
+        while x < 361:
             x = 0
-        time.sleep(0.08)
+            motorX(x)
+            x += 1
+            time.sleep(0.08)
+        while x != 0:
+            motorX(x)
+            x -= 1
+            time.sleep(0.08)
+        time.sleep(1)
+        while x != 0:
+            x = 360
+            motorX(x)
+            x -= 1
+            time.sleep(0.08)
+        while x < 361:
+            motorX(x)
+            x += 1
+            time.sleep(0.08)
+        time.sleep(1)
 
-def generatesteps(resolution, offset):
+def generatesteps(resolution, offset): # generate array values for every possible motor microstep
     deltastep = offset
     motorstep = 0
     motormap = []
-    motormap.extend(range(1,((12*360)/resolution)+1))
-    for item in motormap:
+    motormap.extend(range(1,((12*360)/resolution)+1)) # set range as a function of requested angular resolution
+    for item in motormap: # fill list with calculated output duty cycles
         motormap[motorstep] = int((100*math.sin(deltastep)+100)/2)
         deltastep += (2*resolution*math.pi)/360
         motorstep += 1

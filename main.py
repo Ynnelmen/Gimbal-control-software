@@ -20,7 +20,6 @@ factor2 = 0.1
 DT = 0.02 # master program duty cycle (regulator refresh rate) - set to 0.04 for low frequency
 PWM_FREQ = 200 # set master PWM refresh rate (motors only)
 
-
 motorposition1 = 0
 motorposition2 = 0
 motorposition3 = 0
@@ -31,8 +30,8 @@ def motorX(): # controls x-axis
     x = 0
     time.sleep(30)
     while True:
-        #x = gentarget(output2[0]) # filters reference values
-        xpos = x - int(output1[0]) # calculates requested output
+        x = gentarget(output2[0]) # filters reference values
+        xpos = int(x) - int(output1[0]) # calculates requested output
         if xpos > 359: # compensate for full revolution
             xpos = xpos - 360
         if xpos < 0: # compensate for full revolution
@@ -49,8 +48,8 @@ def motorY(): # controls y-axis
     y = 0
     time.sleep(30)
     while True:
-        #y = gentarget(output2[1]) # filters reference values
-        ypos = y - int(output1[1]) # calculates requested output
+        y = gentarget(output2[1]) # filters reference values
+        ypos = int(y) - int(output1[1]) # calculates requested output
         if ypos > 359: # compensate for full revolution
             ypos = ypos - 360
         if ypos < 0: # compensate for full revolution
