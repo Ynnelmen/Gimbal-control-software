@@ -214,10 +214,11 @@ time.sleep(25)
 print "Get ready!"
 time.sleep(5)
 # work in progess: display info
+print "Running... (^C to stop)"
 while True:
     try:
-        print output1
-        print output2
+        #print output1
+        #print output2
         time.sleep(DT)
     except KeyboardInterrupt: # wait for exit
         GPIO.cleanup()
