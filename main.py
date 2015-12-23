@@ -12,7 +12,8 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
-
+prevx = [0,0,0]
+prevy = [0,0,0]
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
 factor0 = 0.3   # "         "         der alten Werte
 factor1 = 0.2
@@ -30,7 +31,7 @@ def motorX(): # controls x-axis
     x = 0
     time.sleep(30)
     while True:
-        #x = gentarget(output2[0]) # filters reference values
+        x = gentarget(output2[0],0) # filters reference values
         xpos = int(x) - int(output1[0]) # calculates requested output
         if xpos > 359: # compensate for full revolution
             xpos = xpos - 360
@@ -41,6 +42,7 @@ def motorX(): # controls x-axis
         x1.ChangeDutyCycle(xmotorposition1[xpos])
         x2.ChangeDutyCycle(xmotorposition2[xpos])
         x3.ChangeDutyCycle(xmotorposition3[xpos])
+        print x, xpos
 
 def motorY(): # controls y-axis
     global ypos
@@ -48,7 +50,7 @@ def motorY(): # controls y-axis
     y = 0
     time.sleep(30)
     while True:
-        #y = gentarget(output2[1]) # filters reference values
+        y = gentarget(output2[1],1) # filters reference values
         ypos = int(y) - int(output1[1]) # calculates requested output
         if ypos > 359: # compensate for full revolution
             ypos = ypos - 360
@@ -60,10 +62,15 @@ def motorY(): # controls y-axis
         y2.ChangeDutyCycle(ymotorposition2[ypos])
         y3.ChangeDutyCycle(ymotorposition3[ypos])
 
-def gentarget(newinput):
-    output = newinput*factorIN + prev[0]*factor0 + prev[1]*factor1 + prev[2]*factor2 #input wird an vorherige messungen angeglichen
-    del prev[0]
-    prev.append(output) #speichert angepassten output im array
+def gentarget(newinput, axis):
+    if axis == 0:
+        output = newinput*factorIN + prevx[0]*factor0 + prevx[1]*factor1 + prevx[2]*factor2
+        del prevx[0]
+        prevx.append(output) #speichert angepassten output im array
+    elif axis == 1:
+        output = newinput*factorIN + prevy[0]*factor0 + prevy[1]*factor1 + prevy[2]*factor2
+        del prevy[0]
+        prevy.append(output) #speichert angepassten output im array
     return (output)
 
 def generatesteps(resolution, offset): # generate array values for every possible motor microstep
