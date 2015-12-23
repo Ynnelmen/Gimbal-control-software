@@ -15,7 +15,6 @@ def motorX(xpos):
     u.ChangeDutyCycle(motorposition3[xpos])
 
 def turnX():
-    x = 0
     while True:
         while x < 361:
             x = 0
@@ -27,8 +26,8 @@ def turnX():
             x -= 1
             time.sleep(0.08)
         time.sleep(1)
-        while x != 0:
             x = 360
+        while x != 0:
             motorX(x)
             x -= 1
             time.sleep(0.08)
