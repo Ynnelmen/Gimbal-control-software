@@ -16,8 +16,8 @@ def motorX(xpos):
 
 def turnX():
     while True:
+        x = 0
         while x < 361:
-            x = 0
             motorX(x)
             x += 1
             time.sleep(0.08)
