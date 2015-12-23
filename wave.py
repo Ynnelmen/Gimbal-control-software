@@ -39,8 +39,9 @@ def turnX():
             motorX(x)
             x += 1
             time.sleep(0.004)
+        GPIO.cleanup()
         exit()
-
+    
 def generatesteps(resolution, offset): # generate array values for every possible motor microstep
     deltastep = offset
     motorstep = 0
