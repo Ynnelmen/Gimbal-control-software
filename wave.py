@@ -17,25 +17,29 @@ def motorX(xpos):
 def turnX():
     while True:
         x = 0
+        time.sleep(2)
         while x < 361:
             motorX(x)
             x += 1
-            time.sleep(0.08)
+            time.sleep(0.02)
+        time.sleep(2)
         while x != 0:
             motorX(x)
             x -= 1
-            time.sleep(0.08)
-        time.sleep(1)
+            time.sleep(0.02)
+        time.sleep(2)
         x = 360
+        time.sleep(2)
         while x != 0:
             motorX(x)
             x -= 1
-            time.sleep(0.08)
+            time.sleep(0.02)
+        time.sleep(2)
         while x < 361:
             motorX(x)
             x += 1
-            time.sleep(0.08)
-        time.sleep(1)
+            time.sleep(0.02)
+        exit()
 
 def generatesteps(resolution, offset): # generate array values for every possible motor microstep
     deltastep = offset
