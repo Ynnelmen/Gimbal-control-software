@@ -21,21 +21,21 @@ def turnX():
             x = 0
             motorX(x)
             x += 1
-            time.sleep(0.008)
+            time.sleep(0.08)
         while x != 0:
             motorX(x)
             x -= 1
-            time.sleep(0.008)
+            time.sleep(0.08)
         time.sleep(1)
         while x != 0:
             x = 360
             motorX(x)
             x -= 1
-            time.sleep(0.008)
+            time.sleep(0.08)
         while x < 361:
             motorX(x)
             x += 1
-            time.sleep(0.008)
+            time.sleep(0.08)
         time.sleep(1)
 
 def generatesteps(resolution, offset): # generate array values for every possible motor microstep
