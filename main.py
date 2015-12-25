@@ -32,7 +32,8 @@ def motorX(): # controls x-axis
     time.sleep(30)
     while True:
         x = gentarget(output2[1],1) # filters reference values
-        xpos = 2*(int(x) - int(output1[1])) # calculates requested output
+        #xpos = 2*(int(x) - int(output1[1])) # calculates requested output
+        xpos = -2*(output2[1])
         if xpos > 359: # compensate for full revolution
             xpos = xpos - 360
         if xpos < 0: # compensate for full revolution
@@ -50,7 +51,8 @@ def motorY(): # controls y-axis
     time.sleep(30)
     while True:
         y = gentarget(output2[0],0) # filters reference values
-        ypos = 2*(int(y) - int(output1[0])) # calculates requested output
+        #ypos = 2*(int(y) - int(output1[0])) # calculates requested output
+        ypos = -2*(output2[0])
         if ypos > 359: # compensate for full revolution
             ypos = ypos - 360
         if ypos < 0: # compensate for full revolution
