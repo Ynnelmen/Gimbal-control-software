@@ -199,10 +199,10 @@ y3.start(0)
 # initialize parallel tasks for reading, processing and output
 readGyroRef = Thread(target=gyro_reference, args=())
 readAccRef = Thread(target=accelerometer_reference, args=())
-readGyroStab = Thread(target=gyro_stabilized, args=())
-readAccStab = Thread(target=accelerometer_stabilized, args=())
+#readGyroStab = Thread(target=gyro_stabilized, args=())
+#readAccStab = Thread(target=accelerometer_stabilized, args=())
 filterRef = Thread(target=filter_reference, args=())
-filterStab = Thread(target=filter_stabilized, args=())
+#filterStab = Thread(target=filter_stabilized, args=())
 motorXThread = Thread(target=motorX, args=())
 motorYThread = Thread(target=motorY, args=())
 # start tasks
