@@ -31,9 +31,9 @@ def motorX(): # controls x-axis
     x = 0
     time.sleep(30)
     while True:
-        x = gentarget(output2[1],1) # filters reference values
+        x = gentarget(output1[1],1) # filters reference values
         #xpos = 2*(int(x) - int(output1[1])) # calculates requested output
-        xpos = -2*(output2[1])
+        xpos = -2*(output1[1])
         if xpos > 359: # compensate for full revolution
             xpos = xpos - 360
         if xpos < 0: # compensate for full revolution
@@ -50,9 +50,9 @@ def motorY(): # controls y-axis
     y = 0
     time.sleep(30)
     while True:
-        y = gentarget(output2[0],0) # filters reference values
+        y = gentarget(output1[0],0) # filters reference values
         #ypos = 2*(int(y) - int(output1[0])) # calculates requested output
-        ypos = -2*(output2[0])
+        ypos = -2*(output1[0])
         if ypos > 359: # compensate for full revolution
             ypos = ypos - 360
         if ypos < 0: # compensate for full revolution
@@ -124,7 +124,7 @@ def filter_stabilized(): # combines raw sensor data from stabilized pair
 def accelerometer_reference(): # read reference accelerometer values via ADXL345 library
     global reference_accelerometer_acc
     reference_accelerometer_acc = 0
-    reference_accelerometer = ADXL345(0x1d) # read correct I2C device address
+    reference_accelerometer = ADXL345(0x53) # read correct I2C device address
     while True:
         time.sleep(DT) # match program clock
         reference_accelerometer_acc = reference_accelerometer.getAxes(True) # read value
@@ -132,7 +132,7 @@ def accelerometer_reference(): # read reference accelerometer values via ADXL345
 def accelerometer_stabilized(): # read stabilized accelerometer values via ADXL345 library
     global stabilized_accelerometer_acc
     stabilized_accelerometer_acc = 0
-    stabilized_accelerometer = ADXL345(0x53) # read correct I2C device address
+    stabilized_accelerometer = ADXL345(0x1d) # read correct I2C device address
     while True:
         time.sleep(DT) # match program clock
         stabilized_accelerometer_acc = stabilized_accelerometer.getAxes(True) # read value
@@ -140,7 +140,7 @@ def accelerometer_stabilized(): # read stabilized accelerometer values via ADXL3
 def gyro_reference(): # read reference gyroscope values
     global reference_gyro_omega
     reference_gyro_omega = 0
-    reference_gyro = L3GD20(busId = 1, slaveAddr = 0x6a, ifLog = False, ifWriteBlock=False)
+    reference_gyro = L3GD20(busId = 1, slaveAddr = 0x6b, ifLog = False, ifWriteBlock=False)
     reference_gyro.Set_PowerMode("Normal")
     reference_gyro.Set_FullScale_Value("250dps")
     reference_gyro.Set_AxisX_Enabled(True)
@@ -155,7 +155,7 @@ def gyro_reference(): # read reference gyroscope values
 def gyro_stabilized(): # read stabilized gyroscope values
     global stabilized_gyro_omega
     stabilized_gyro_omega = 0
-    stabilized_gyro = L3GD20(busId = 1, slaveAddr = 0x6b, ifLog = False, ifWriteBlock=False)
+    stabilized_gyro = L3GD20(busId = 1, slaveAddr = 0x6a, ifLog = False, ifWriteBlock=False)
     stabilized_gyro.Set_PowerMode("Normal")
     stabilized_gyro.Set_FullScale_Value("250dps")
     stabilized_gyro.Set_AxisX_Enabled(True)
@@ -208,10 +208,10 @@ motorYThread = Thread(target=motorY, args=())
 # start tasks
 readGyroRef.start()
 readAccRef.start()
-readGyroStab.start()
-readAccStab.start()
+#readGyroStab.start()
+#readAccStab.start()
 filterRef.start()
-filterStab.start()
+#filterStab.start()
 motorXThread.start()
 motorYThread.start()
 # wait for calibration to complete - sensors should be held still
