@@ -38,15 +38,16 @@ def motorX(): # controls x-axis
     pidX.setKd(0.01)
     windupfactor = 10
     time.sleep(30)
+    pidX.SetPoint = 10
     while True:
         target = gentarget(output1[1],1) # calculates requested output using reference sensor
         pidX.update(output2[1])
-        if target < (max(prevx) - windupfactor):
-            pidX.setWindup(target)
-        elif target > (min(prevx) + windupfactor):
-            pidX.setWindup(target)
-        else:
-            pidX.SetPoint = target
+        #if target < (max(prevx) - windupfactor):
+        #    pidX.setWindup(target)
+        #elif target > (min(prevx) + windupfactor):
+        #    pidX.setWindup(target)
+        #else:
+        #    pidX.SetPoint = target
         output = int(pidX.output)
         if output > 359: # compensate for full revolution
             output -= 360
