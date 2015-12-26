@@ -26,42 +26,38 @@ motorposition2 = 0
 motorposition3 = 0
 
 def motorX(): # controls x-axis
-    global xpos
-    xpos = 0
     x = 0
+    offset = 0
     time.sleep(30)
     while True:
-        x = int(gentarget(output1[1],1)) # filters reference values
-        xpos = 2*(-x) # calculates requested output
-        #xpos = -2*int(output1[1])
-        if xpos > 359: # compensate for full revolution
-            xpos = xpos - 360
-        if xpos < 0: # compensate for full revolution
-            xpos = 360 + xpos
+        offset = int(output1[1]) - int(gentarget(output1[1],1)) # filters reference values
+        x = 2*(-int(output1[1]) + offset) # calculates requested output
+        if x > 359: # compensate for full revolution
+            x = x - 360
+        if x < 0: # compensate for full revolution
+            x = 360 + x
         time.sleep(DT/2)
         # set phase values
-        x1.ChangeDutyCycle(xmotorposition1[xpos])
-        x2.ChangeDutyCycle(xmotorposition2[xpos])
-        x3.ChangeDutyCycle(xmotorposition3[xpos])
+        x1.ChangeDutyCycle(xmotorposition1[x])
+        x2.ChangeDutyCycle(xmotorposition2[x])
+        x3.ChangeDutyCycle(xmotorposition3[x])
 
 def motorY(): # controls y-axis
-    global ypos
-    ypos = 0
     y = 0
+    offset = 0
     time.sleep(30)
     while True:
-        y = int(gentarget(output1[0],0)) # filters reference values
-        ypos = 2*(-y) # calculates requested output
-        #ypos = -2*int(output1[0])
-        if ypos > 359: # compensate for full revolution
-            ypos = ypos - 360
-        if ypos < 0: # compensate for full revolution
-            ypos = 360 + ypos
+        offset = int(output1[0]) - int(gentarget(output1[0],0)) # filters reference values
+        y = 2*(-int(output1[1]) + offset) # calculates requested output
+        if y > 359: # compensate for full revolution
+            y = y - 360
+        if y < 0: # compensate for full revolution
+            y = 360 + y
         time.sleep(DT/2)
         # set phase values
-        y1.ChangeDutyCycle(ymotorposition1[ypos])
-        y2.ChangeDutyCycle(ymotorposition2[ypos])
-        y3.ChangeDutyCycle(ymotorposition3[ypos])
+        y1.ChangeDutyCycle(ymotorposition1[y])
+        y2.ChangeDutyCycle(ymotorposition2[y])
+        y3.ChangeDutyCycle(ymotorposition3[y])
 
 def gentarget(newinput, axis):
     if axis == 0:
