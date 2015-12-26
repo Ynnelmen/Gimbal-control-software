@@ -38,9 +38,9 @@ def motorX(): # controls x-axis
     while True:
         target = gentarget(output1[1],1) # calculates requested output using reference sensor
         pidX.update(output2[1])
-        if(target < (max(prevx) - windupfactor))
+        if target < (max(prevx) - windupfactor):
             pidX.setWindup(target)
-        elif(target > (min(prevx) + windupfactor))
+        elif target > (min(prevx) + windupfactor):
             pidX.setWindup(target)
         else:
             pidX.SetPoint = target
