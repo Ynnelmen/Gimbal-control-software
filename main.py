@@ -33,9 +33,9 @@ motorposition3 = 0
 def motorX(): # controls x-axis
     pidX = PID.PID(P, I, D)
     pidX.setSampleTime(0.1)
-    pidX.setKp(20)
-    pidX.setKi(0.17)
-    pidX.setKd(18)
+    pidX.setKp(25)
+    pidX.setKi(0.01)
+    pidX.setKd(33)
     windupfactor = 10
     time.sleep(17)
     pidX.SetPoint = 30
@@ -49,6 +49,10 @@ def motorX(): # controls x-axis
         #else:
         #    pidX.SetPoint = target
         output = 2*int(pidX.output)
+        if output > 1439: # compensate for full revolution
+            output -= 1440
+        if output < -1440: # compensate for full revolution
+            output += 1440
         if output > 719: # compensate for full revolution
             output -= 720
         if output < -360: # compensate for full revolution
