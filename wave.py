@@ -16,9 +16,20 @@ def motorX(xpos):
 
 def turnX():
     while True:
+<<<<<<< Updated upstream
         x = 0
         time.sleep(2)
         while x < 361:
+=======
+<<<<<<< HEAD
+        while x < 91:
+            x = 0
+=======
+        x = 0
+        time.sleep(2)
+        while x < 361:
+>>>>>>> origin/master
+>>>>>>> Stashed changes
             motorX(x)
             x += 1
             time.sleep(0.004)
@@ -31,11 +42,24 @@ def turnX():
         x = 360
         time.sleep(2)
         while x != 0:
+<<<<<<< Updated upstream
             motorX(x)
             x -= 1
+=======
+<<<<<<< HEAD
+            x = 90
+            motorX(x)
+            x -= 1
+            time.sleep(0.08)
+        while x < 91:
+=======
+            motorX(x)
+            x -= 1
+>>>>>>> Stashed changes
             time.sleep(0.004)
         time.sleep(2)
         while x < 361:
+>>>>>>> origin/master
             motorX(x)
             x += 1
             time.sleep(0.004)
