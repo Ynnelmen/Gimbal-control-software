@@ -18,7 +18,6 @@ def turnX():
     x = 0
     while True:
         while x < 91:
-            x = 0
             motorX(x)
             x += 1
             time.sleep(0.08)
@@ -28,7 +27,6 @@ def turnX():
             time.sleep(0.08)
         time.sleep(1)
         while x != 0:
-            x = 90
             motorX(x)
             x -= 1
             time.sleep(0.08)
