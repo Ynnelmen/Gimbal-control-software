@@ -35,7 +35,7 @@ def motorX(): # controls x-axis
     pidX.setSampleTime(1)
     pidX.setKp(5)
     pidX.setKi(0)
-    pidX.setKd(0)
+    pidX.setKd(5)
     windupfactor = 10
     time.sleep(17)
     pidX.SetPoint = 30
