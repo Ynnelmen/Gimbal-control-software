@@ -16,7 +16,7 @@ import PID
 
 P = 0.33
 I = 2.2
-D = 0.013
+D = 2.2
 prevx = [0]*26
 prevy = [0]*26
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
@@ -48,7 +48,7 @@ def motorX(): # controls x-axis
         #    pidX.setWindup(target)
         #else:
         #    pidX.SetPoint = target
-        output = 2*int(pidX.output)
+        output = -2*int(pidX.output)
         if output > 359: # compensate for full revolution
             output -= 360
         if output < 0: # compensate for full revolution
