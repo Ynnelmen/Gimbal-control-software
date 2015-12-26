@@ -12,6 +12,8 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
+import PID
+
 prevx = [0]*26
 prevy = [0]*26
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
@@ -26,21 +28,32 @@ motorposition2 = 0
 motorposition3 = 0
 
 def motorX(): # controls x-axis
-    x = 0
-    offset = 0
+    pidX = PID.PID(P, I, D)
+    pidX.setSampleTime(0.02)
+    pidX.setKp(1)
+    pidX.setKi(1)
+    pidX.setKd(0.01)
+    windupfactor = 10
     time.sleep(30)
     while True:
-        offset = int(output1[1]) - int(gentarget(output1[1],1)) # filters reference values
-        x = 2*(-int(output1[1]) + offset) # calculates requested output
-        if x > 359: # compensate for full revolution
-            x = x - 360
-        if x < 0: # compensate for full revolution
-            x = 360 + x
-        time.sleep(DT/2)
+        target = gentarget(output1[1],1) # calculates requested output using reference sensor
+        pidX.update(output2[1])
+        if(target < (max(prevx) - windupfactor))
+            pidX.setWindup(target)
+        elif(target > (min(prevx) + windupfactor))
+            pidX.setWindup(target)
+        else:
+            pidX.SetPoint = target
+        output = int(pidX.output)
+        if output > 359: # compensate for full revolution
+            output -= 360
+        if output < 0: # compensate for full revolution
+            output += 360
         # set phase values
-        x1.ChangeDutyCycle(xmotorposition1[x])
-        x2.ChangeDutyCycle(xmotorposition2[x])
-        x3.ChangeDutyCycle(xmotorposition3[x])
+        x1.ChangeDutyCycle(xmotorposition1[output])
+        x2.ChangeDutyCycle(xmotorposition2[output])
+        x3.ChangeDutyCycle(xmotorposition3[output])
+        time.sleep(DT/2)
 
 def motorY(): # controls y-axis
     y = 0
@@ -200,7 +213,7 @@ readAccStab = Thread(target=accelerometer_stabilized, args=())
 filterRef = Thread(target=filter_reference, args=())
 filterStab = Thread(target=filter_stabilized, args=())
 motorXThread = Thread(target=motorX, args=())
-motorYThread = Thread(target=motorY, args=())
+#motorYThread = Thread(target=motorY, args=())
 # start tasks
 readGyroRef.start()
 readAccRef.start()
@@ -209,7 +222,7 @@ readAccStab.start()
 filterRef.start()
 filterStab.start()
 motorXThread.start()
-motorYThread.start()
+#motorYThread.start()
 # wait for calibration to complete - sensors should be held still
 print "Catching up..."
 time.sleep(2)
