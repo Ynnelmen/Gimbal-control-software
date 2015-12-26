@@ -33,9 +33,9 @@ motorposition3 = 0
 def motorX(): # controls x-axis
     pidX = PID.PID(P, I, D)
     pidX.setSampleTime(0.5)
-    pidX.setKp(1.5)
-    pidX.setKi(1)
-    pidX.setKd(0)
+    pidX.setKp(1.2)
+    pidX.setKi(0.5)
+    pidX.setKd(0.01)
     windupfactor = 10
     time.sleep(17)
     pidX.SetPoint = 30
