@@ -15,57 +15,29 @@ def motorX(xpos):
     u.ChangeDutyCycle(motorposition3[xpos])
 
 def turnX():
+    x = 0
     while True:
-<<<<<<< Updated upstream
-        x = 0
-        time.sleep(2)
-        while x < 361:
-=======
-<<<<<<< HEAD
         while x < 91:
             x = 0
-=======
-        x = 0
-        time.sleep(2)
-        while x < 361:
->>>>>>> origin/master
->>>>>>> Stashed changes
             motorX(x)
             x += 1
-            time.sleep(0.004)
-        time.sleep(2)
+            time.sleep(0.08)
         while x != 0:
             motorX(x)
             x -= 1
-            time.sleep(0.004)
-        time.sleep(2)
-        x = 360
-        time.sleep(2)
+            time.sleep(0.08)
+        time.sleep(1)
         while x != 0:
-<<<<<<< Updated upstream
-            motorX(x)
-            x -= 1
-=======
-<<<<<<< HEAD
             x = 90
             motorX(x)
             x -= 1
             time.sleep(0.08)
         while x < 91:
-=======
-            motorX(x)
-            x -= 1
->>>>>>> Stashed changes
-            time.sleep(0.004)
-        time.sleep(2)
-        while x < 361:
->>>>>>> origin/master
             motorX(x)
             x += 1
-            time.sleep(0.004)
-        GPIO.cleanup()
-        exit()
-    
+            time.sleep(0.08)
+        time.sleep(1)
+
 def generatesteps(resolution, offset): # generate array values for every possible motor microstep
     deltastep = offset
     motorstep = 0
