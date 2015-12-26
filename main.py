@@ -14,7 +14,7 @@ import math
 import os
 import PID
 
-P = 1
+P = 0.5
 I = 0
 D = 0
 prevx = [0]*26
