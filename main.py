@@ -38,7 +38,7 @@ def motorX(): # controls x-axis
     #pidX.setKd(0.01)
     windupfactor = 10
     time.sleep(30)
-    pidX.SetPoint = 10
+    pidX.SetPoint = 30
     while True:
         target = gentarget(output1[1],1) # calculates requested output using reference sensor
         pidX.update(output2[1])
@@ -48,7 +48,7 @@ def motorX(): # controls x-axis
         #    pidX.setWindup(target)
         #else:
         #    pidX.SetPoint = target
-        output = int(pidX.output)
+        output = 2*int(pidX.output)
         if output > 359: # compensate for full revolution
             output -= 360
         if output < 0: # compensate for full revolution
