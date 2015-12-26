@@ -12,8 +12,8 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
-prevx = [0]*121
-prevy = [0]*121
+prevx = [0]*61
+prevy = [0]*61
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
 factor0 = 0.3   # "         "         der alten Werte
 factor1 = 0.2
@@ -65,11 +65,11 @@ def motorY(): # controls y-axis
 
 def gentarget(newinput, axis):
     if axis == 0:
-        output = newinput*factorIN + prevx[0]*factor0 + prevx[60]*factor1 + prevx[120]*factor2
+        output = newinput*factorIN + prevx[0]*factor0 + prevx[30]*factor1 + prevx[60]*factor2
         del prevx[0]
         prevx.append(output) #speichert angepassten output im array
     elif axis == 1:
-        output = newinput*factorIN + prevy[0]*factor0 + prevy[60]*factor1 + prevy[120]*factor2
+        output = newinput*factorIN + prevy[0]*factor0 + prevy[30]*factor1 + prevy[60]*factor2
         del prevy[0]
         prevy.append(output) #speichert angepassten output im array
     return (output)
@@ -199,19 +199,19 @@ y3.start(0)
 # initialize parallel tasks for reading, processing and output
 readGyroRef = Thread(target=gyro_reference, args=())
 readAccRef = Thread(target=accelerometer_reference, args=())
-#readGyroStab = Thread(target=gyro_stabilized, args=())
-#readAccStab = Thread(target=accelerometer_stabilized, args=())
+readGyroStab = Thread(target=gyro_stabilized, args=())
+readAccStab = Thread(target=accelerometer_stabilized, args=())
 filterRef = Thread(target=filter_reference, args=())
-#filterStab = Thread(target=filter_stabilized, args=())
+filterStab = Thread(target=filter_stabilized, args=())
 motorXThread = Thread(target=motorX, args=())
 motorYThread = Thread(target=motorY, args=())
 # start tasks
 readGyroRef.start()
 readAccRef.start()
-#readGyroStab.start()
-#readAccStab.start()
+readGyroStab.start()
+readAccStab.start()
 filterRef.start()
-#filterStab.start()
+filterStab.start()
 motorXThread.start()
 motorYThread.start()
 # wait for calibration to complete - sensors should be held still
