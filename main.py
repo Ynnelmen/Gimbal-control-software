@@ -32,7 +32,7 @@ motorposition3 = 0
 
 def motorX(): # controls x-axis
     pidX = PID.PID(P, I, D)
-    pidX.setSampleTime(0.1)
+    pidX.setSampleTime(0.5)
     pidX.setKp(2.5)
     pidX.setKi(0.001)
     pidX.setKd(3.3)
