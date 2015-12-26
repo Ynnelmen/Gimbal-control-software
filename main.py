@@ -14,9 +14,9 @@ import math
 import os
 import PID
 
-P = 1.2
-I = 0.5
-D = 0.001
+P = 0.1
+I = 0.8
+D = 0.1
 prevx = [0]*26
 prevy = [0]*26
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
