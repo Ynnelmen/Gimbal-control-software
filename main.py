@@ -12,12 +12,12 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
-prevx = [0]*61
-prevy = [0]*61
+prevx = [0]*26
+prevy = [0]*26
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
-factor0 = 0.3   # "         "         der alten Werte
+factor0 = 0.1   # "         "         der alten Werte
 factor1 = 0.2
-factor2 = 0.1
+factor2 = 0.3
 DT = 0.02 # master program duty cycle (regulator refresh rate) - set to 0.04 for low frequency
 PWM_FREQ = 400 # set master PWM refresh rate (motors only)
 
@@ -32,7 +32,7 @@ def motorX(): # controls x-axis
     time.sleep(30)
     while True:
         x = int(gentarget(output1[1],1)) # filters reference values
-        xpos = 2*(-x) # calculates requested output
+        xpos = 2*(-output2[1] + x) # calculates requested output
         #xpos = -2*int(output1[1])
         if xpos > 359: # compensate for full revolution
             xpos = xpos - 360
@@ -51,7 +51,7 @@ def motorY(): # controls y-axis
     time.sleep(30)
     while True:
         y = int(gentarget(output1[0],0)) # filters reference values
-        ypos = 2*(-y) # calculates requested output
+        ypos = 2*(-output2[0] + y) # calculates requested output
         #ypos = -2*int(output1[0])
         if ypos > 359: # compensate for full revolution
             ypos = ypos - 360
@@ -65,11 +65,11 @@ def motorY(): # controls y-axis
 
 def gentarget(newinput, axis):
     if axis == 0:
-        output = newinput*factorIN + prevx[0]*factor0 + prevx[30]*factor1 + prevx[60]*factor2
+        output = newinput*factorIN + prevx[0]*factor0 + prevx[12]*factor1 + prevx[25]*factor2
         del prevx[0]
         prevx.append(output) #speichert angepassten output im array
     elif axis == 1:
-        output = newinput*factorIN + prevy[0]*factor0 + prevy[30]*factor1 + prevy[60]*factor2
+        output = newinput*factorIN + prevy[0]*factor0 + prevy[12]*factor1 + prevy[25]*factor2
         del prevy[0]
         prevy.append(output) #speichert angepassten output im array
     return (output)
