@@ -34,10 +34,10 @@ def motorX(): # controls x-axis
     pidX = PID.PID(P, I, D)
     pidX.setSampleTime(0.5)
     pidX.setKp(1.5)
-    pidX.setKi(0)
+    pidX.setKi(1)
     pidX.setKd(0)
     windupfactor = 10
-    time.sleep(30)
+    time.sleep(17)
     pidX.SetPoint = 30
     while True:
         target = gentarget(output1[1],1) # calculates requested output using reference sensor
@@ -62,7 +62,7 @@ def motorX(): # controls x-axis
 def motorY(): # controls y-axis
     y = 0
     offset = 0
-    time.sleep(30)
+    time.sleep(17)
     while True:
         offset = int(output1[0]) - int(gentarget(output1[0],0)) # filters reference values
         y = 2*(-int(output1[0]) + offset) # calculates requested output
@@ -109,7 +109,7 @@ def filter_reference(): # combines raw sensor data from reference pair
         output1[1] = offset[1] + .99*(output1[1]+reference_gyro_omega[1]*DT-offset[1]) + .01*(360/(2*math.pi))*(math.atan2(reference_accelerometer_acc['z'], reference_accelerometer_acc['x'])+math.pi) # calculate y-rotation
         iterations += 1 # iteration counter
         time.sleep(DT)
-        if iterations == 20*(1/DT): # set values to zero once values are stabilized based on fixed iteration number (as a function of the master clock)
+        if iterations == 8*(1/DT): # set values to zero once values are stabilized based on fixed iteration number (as a function of the master clock)
             offset[0] = 0.0 - output1[0] # zero x
             offset[1] = 0.0 - output1[1] # zero y
             output1[0] = 0 # output to 0 for instant response (avoid values in- or decrementing)
@@ -127,7 +127,7 @@ def filter_stabilized(): # combines raw sensor data from stabilized pair
         output2[1] = offset[1] + .99*(output2[1]+stabilized_gyro_omega[1]*DT-offset[1]) + .01*(360/(2*math.pi))*(math.atan2(stabilized_accelerometer_acc['z'], stabilized_accelerometer_acc['x'])+math.pi) # calculate y-rotation
         iterations += 1 # iteration counter
         time.sleep(DT)
-        if iterations == 20*(1/DT): # set values to zero once values are stabilized based on fixed iteration number (as a function of the master clock)
+        if iterations == 8*(1/DT): # set values to zero once values are stabilized based on fixed iteration number (as a function of the master clock)
             offset[0] = 0.0 - output2[0] # zero x
             offset[1] = 0.0 - output2[1] # zero y
             output2[0] = 0 # output to 0 for instant response (avoid values in- or decrementing)
@@ -231,7 +231,7 @@ motorXThread.start()
 print "Catching up..."
 time.sleep(2)
 print "Calibrating..."
-time.sleep(25)
+time.sleep(10)
 print "Get ready!"
 time.sleep(5)
 # work in progess: display info
