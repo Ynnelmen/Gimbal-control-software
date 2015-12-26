@@ -15,8 +15,8 @@ import os
 import PID
 
 P = 0.5
-I = 0.5
-D = 0.01
+I = 0
+D = 0
 prevx = [0]*26
 prevy = [0]*26
 factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
@@ -32,10 +32,10 @@ motorposition3 = 0
 
 def motorX(): # controls x-axis
     pidX = PID.PID(P, I, D)
-    pidX.setSampleTime(0.5)
-    #pidX.setKp(1)
-    #pidX.setKi(1)
-    #pidX.setKd(0.01)
+    pidX.setSampleTime(1)
+    pidX.setKp(1)
+    pidX.setKi(0)
+    pidX.setKd(0)
     windupfactor = 10
     time.sleep(30)
     pidX.SetPoint = 30
