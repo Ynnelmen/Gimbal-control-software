@@ -49,6 +49,10 @@ def motorX(): # controls x-axis
         #else:
         #    pidX.SetPoint = target
         output = 2*int(pidX.output)
+        if output > 719: # compensate for full revolution
+            output -= 720
+        if output < -360: # compensate for full revolution
+            output += 720
         if output > 359: # compensate for full revolution
             output -= 360
         if output < 0: # compensate for full revolution
