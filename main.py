@@ -48,7 +48,7 @@ def motorY(): # controls y-axis
     time.sleep(30)
     while True:
         offset = int(output1[0]) - int(gentarget(output1[0],0)) # filters reference values
-        y = 2*(-int(output1[1]) + offset) # calculates requested output
+        y = 2*(-int(output1[0]) + offset) # calculates requested output
         if y > 359: # compensate for full revolution
             y = y - 360
         if y < 0: # compensate for full revolution
