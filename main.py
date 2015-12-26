@@ -14,7 +14,7 @@ import math
 import os
 import PID
 
-P = 0.5
+P = 0.7
 I = 0
 D = 0
 prevx = [0]*26
@@ -239,7 +239,7 @@ print "Running... (^C to stop)"
 while True:
     try:
         #print output1
-        #print output2
+        print output2[1]
         time.sleep(DT)
     except KeyboardInterrupt: # wait for exit
         GPIO.cleanup()
