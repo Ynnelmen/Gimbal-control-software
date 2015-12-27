@@ -12,17 +12,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
-import PID
 
-P = 0.5
-I = 0
-D = 0
-prevx = [0]*26
-prevy = [0]*26
-factorIN = 0.4  # bestimmt Gewichtung des neuen input-Wertes
-factor0 = 0.1   # "         "         der alten Werte
-factor1 = 0.2
-factor2 = 0.3
 DT = 0.02 # master program duty cycle (regulator refresh rate) - set to 0.04 for low frequency
 PWM_FREQ = 400 # set master PWM refresh rate (motors only)
 
@@ -31,39 +21,15 @@ motorposition2 = 0
 motorposition3 = 0
 
 def motorX(): # controls x-axis
-    pidX = PID.PID(P, I, D)
-    pidX.setSampleTime(1)
-    pidX.setKp(1)
-    pidX.setKi(0)
-    pidX.setKd(0)
-    windupfactor = 10
     time.sleep(17)
-    pidX.SetPoint = 30
     while True:
-        #target = gentarget(output1[1],1) # calculates requested output using reference sensor
-        pidX.update(output2[1])
-        #if target < (max(prevx) - windupfactor):
-        #    pidX.setWindup(target)
-        #elif target > (min(prevx) + windupfactor):
-        #    pidX.setWindup(target)
-        #else:
-        #    pidX.SetPoint = target
-        output = int(pidX.output)
-        print output
-        if output > 1440:
-            output = 0
-        if output > 1439: # compensate for full revolution
-            output -= 1440
-        if output < -1440: # compensate for full revolution
-            output += 1440
-        if output > 719: # compensate for full revolution
-            output -= 720
-        if output < -360: # compensate for full revolution
-            output += 720
+
         if output > 359: # compensate for full revolution
             output -= 360
         if output < 0: # compensate for full revolution
             output += 360
+
+        # FILTER/PID STUFF CAN GO HERE
         # set phase values
         x1.ChangeDutyCycle(xmotorposition1[output])
         x2.ChangeDutyCycle(xmotorposition2[output])
