@@ -40,7 +40,7 @@ def motorX(): # controls x-axis
     time.sleep(17)
     pidX.SetPoint = 30
     while True:
-        target = gentarget(output1[1],1) # calculates requested output using reference sensor
+        #target = gentarget(output1[1],1) # calculates requested output using reference sensor
         pidX.update(output2[1])
         #if target < (max(prevx) - windupfactor):
         #    pidX.setWindup(target)
@@ -49,6 +49,7 @@ def motorX(): # controls x-axis
         #else:
         #    pidX.SetPoint = target
         output = int(pidX.output)
+        print output
         if output > 1440:
             output = 0
         if output > 1439: # compensate for full revolution
@@ -249,7 +250,7 @@ print "Running... (^C to stop)"
 while True:
     try:
         #print output1
-        print output2[1]
+        #print output2[1]
         time.sleep(DT)
     except KeyboardInterrupt: # wait for exit
         GPIO.cleanup()
